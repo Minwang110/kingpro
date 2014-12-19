@@ -1,0 +1,8 @@
+#define SNAKE_SYMBOL	'@'		/* snake body and food symbol */
+#define FOOD_SYMBOL		'*'
+#define MAX_NODE		30		/* maximum snake nodes */
+#define DFL_SPEED		50		/* snake default speed */
+#define TOP_ROW		5			/* top_row */
+#define BOT_ROW		LINES - 1
+#define LEFT_EDGE	0
+#define RIGHT_EDGE	COLS - 1
