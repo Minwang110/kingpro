@@ -6,3 +6,10 @@
 #define BOT_ROW		LINES - 1
 #define LEFT_EDGE	0
 #define RIGHT_EDGE	COLS - 1
+typedef struct node			/* Snake_node structure */
+{
+	int x_pos;
+	int y_pos;
+	struct node *prev;
+	struct node *next;
+} Snake_Node;
