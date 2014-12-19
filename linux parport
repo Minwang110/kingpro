@@ -1,0 +1,21 @@
+#define PARPORT10x378
+main()
+{
+ iop(3);outb_p(PARPORT1+2,12);
+ for(count=0；count<4;count++){
+     for(bits=o;bits<22;bits++){
+         data=0;
+         outb_p(PARPORT1,data);
+         data|=(parport_data[count][bits]<<1);
+         //set the data for D0
+         outb_p(PARPORT1,data);
+         data|=(2<<1);
+         outb_p(PARPORT1,data);
+         }
+         data|=(4<<1);
+         outb_p(PARPORT1,data);
+         }
+         outb_p(PARPORT1+0x402,(inb_p(PARPORT1+0x402)&0x1F)|0x20);
+         outb_p(PARPORT1+2,0x2C);
+         if(inb_p(PARPORT1)&0x10)printf("ok\n");
+         }
