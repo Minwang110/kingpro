@@ -1,25 +1,26 @@
-#include<reg51.h>
-#define OSC 11059200
-#define BAUDRATE 9600
+ #include <reg51.h>
+unsigned char code CharCode[]=
+{0xc0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,
+0x80,0x90,0x88,0x83,0xC6,0xA1,0x86,0x8E};
+unsigned char cc,count;
+void delayms(unsigned char ms)
+{
+    unsigned char i;while(ms--)
+	{for(i = 0;i<120;i++);}
+}
 void main(void)
 {
- unsigned char c;
- TMOD=0x20;
- SCON=0x50;
- PCON=0x80;
- TL1=256-(OSC/12/16/BAUDRATE);
- TH1=256-(OSC/12/16/BAUDRATE);
- TR1=1;RI=0;TI=0;
- while(1)
- {while(RI==0);
-  RI=0;
-  c=SBUF;
-  switch(c)
-  {case 0x0d:
-   case 0x0a:SBUF=c;break;
-   default:SBUF=++c;break;
-   }
-  while(!TI);
-  TI=0;
- }
+	TCON = 0x05;
+	EA=1;
+	EX0=1;		  
+	P1 = CharCode[0];
+	count = 0;
+    while(1)
+	{P1 = CharCode[count];}	
+}
+void int_0(void) interrupt 0
+{
+    count ++;
+	if(count >= 10)
+	{count = 0;}
 }
