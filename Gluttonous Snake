@@ -13,3 +13,19 @@ typedef struct node			/* Snake_node structure */
 	struct node *prev;
 	struct node *next;
 } Snake_Node;
+struct position				 
+{
+	int x_pos;
+	int y_pos;
+} ;
+void Init_Disp();			 
+void Food_Disp();			 
+void Wrap_Up();				
+void Key_Ctrl();			 
+int set_ticker(int n_msecs);
+void DLL_Snake_Create();	
+void DLL_Snake_Insert(int x, int y);	
+void DLL_Snake_Delete_Node();	
+void DLL_Snake_Delete();		 
+void Snake_Move();			 
+void gameover(int n);	
