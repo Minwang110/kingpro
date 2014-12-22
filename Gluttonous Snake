@@ -57,3 +57,29 @@ void Init_Disp()
     mvaddstr(4, 2, "       Nagivation key controls snake moving.");
 	refresh();
 }
+void Food_Disp()
+{
+	srand(time(0));
+	food.x_pos = rand() % (COLS - 2) + 1;
+	food.y_pos = rand() % (LINES - TOP_ROW - 2) + TOP_ROW + 1;
+	mvaddch(food.y_pos, food.x_pos, FOOD_SYMBOL); 
+	refresh();
+}
+void DLL_Snake_Create()
+{
+	Snake_Node *temp = (Snake_Node *)malloc(sizeof(Snake_Node));
+	head = (Snake_Node *)malloc(sizeof(Snake_Node));
+	tail = (Snake_Node *)malloc(sizeof(Snake_Node));
+	if(temp == NULL || head == NULL || tail == NULL)
+	perror("malloc");
+	temp->x_pos = 5;
+	temp->y_pos = 10;
+	head->prev =NULL;
+	tail->next = NULL;
+	head->next = temp;
+	temp->next = tail;
+	tail->prev = temp;
+	temp->prev = head;
+	mvaddch(temp->y_pos, temp->x_pos, SNAKE_SYMBOL);
+	refresh();
+}
