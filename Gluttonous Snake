@@ -95,3 +95,44 @@ new_timeset.it_value.tv_sec = n_sec;
 	new_timeset.it_value.tv_usec = n_usecs;
     return setitimer(ITIMER_REAL, &new_timeset, NULL);
 }
+void Snake_Move()
+{
+	static int length = 1;		 
+	int Length_Flag = 0;		 
+	int moved = 0;
+	signal(SIGALRM, SIG_IGN);
+	 	if((head->next->x_pos == RIGHT_EDGE-1 && x_dir == 1) 
+		|| (head->next->x_pos == LEFT_EDGE+1 && x_dir == -1)
+		|| (head->next->y_pos == TOP_ROW+1 && y_dir == -1)
+		|| (head->next->y_pos == BOT_ROW-1 && y_dir == 1))
+	{
+		gameover(1);
+	}
+	if(mvinch(head->next->y_pos + y_dir, head->next->x_pos + x_dir) == '@')
+	  gameover(2);
+    if(ttm > 0 && ttg-- == 1)
+	{
+	    DLL_Snake_Insert(head->next->x_pos + x_dir, head->next->y_pos + y_dir);
+		ttg = ttm;		
+		moved = 1;		 
+	}
+	if(moved)
+	{
+		if(head->next->x_pos == food.x_pos && head->next->y_pos == food.y_pos)
+		{
+			Length_Flag = 1;
+			length++;
+			if(length >= MAX_NODE)
+				gameover(0);
+			Food_Disp();
+		}
+		if(Length_Flag == 0)
+		{
+			mvaddch(tail->prev->y_pos, tail->prev->x_pos, ' ');
+			DLL_Snake_Delete_Node();
+		}
+		mvaddch(head->next->y_pos, head->next->x_pos, SNAKE_SYMBOL);
+		refresh();
+	}
+	signal(SIGALRM, Snake_Move);
+}
