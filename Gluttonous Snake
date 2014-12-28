@@ -203,3 +203,15 @@ void Wrap_Up()
 		}
 	}
 }
+void DLL_Snake_Insert(int x, int y)
+{
+	Snake_Node *temp = (Snake_Node *)malloc(sizeof(Snake_Node));
+	if(temp == NULL)
+		perror("malloc");
+	temp->x_pos = x;
+	temp->y_pos = y;
+	temp->prev = head->next->prev;
+	head->next->prev = temp;
+	temp->next = head->next;
+	head->next = temp;
+}
